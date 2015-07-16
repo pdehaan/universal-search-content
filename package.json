@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --optimize-minimize --optimize-dedupe",
+    "build": "webpack",
     "lint": "eslint .",
     "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"

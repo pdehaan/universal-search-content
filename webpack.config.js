@@ -1,4 +1,8 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const DedupePlugin = webpack.optimize.DedupePlugin;
+const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
   entry: './src/main.js',
@@ -10,6 +14,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       hash: true,
       title: 'Universal Search'
+    }),
+    new DedupePlugin(),
+    new UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
     })
   ],
   module: {
