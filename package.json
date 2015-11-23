@@ -36,6 +36,7 @@
     "babel-eslint": "4.0.5",
     "eslint": "0.24.0",
     "eslint-config-universal-search": "1.0.0",
+    "sass-lint": "1.3.3",
     "webpack-dev-server": "^1.10.1"
   },
   "homepage": "https://github.com/mozilla/universal-search-content#readme",
@@ -49,6 +50,7 @@
   "scripts": {
     "build": "webpack --optimize-minimize --optimize-dedupe",
     "lint": "eslint .",
+    "sass-lint": "sass-lint src/styles/**/*.scss --verbose",
     "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
