@@ -4,7 +4,7 @@ import flatten from 'lodash/array/flatten';
 import invoke from 'lodash/collection/invoke';
 
 export default AmpersandView.extend({
-  render () {
+  render() {
     this.beforeRender();
 
     AmpersandView.prototype.render.apply(this, arguments);
@@ -13,35 +13,35 @@ export default AmpersandView.extend({
   },
 
   // implement in submodules
-  beforeRender () {},
+  beforeRender() {},
 
   // implement in submodules
-  afterRender () {},
+  afterRender() {},
 
   // This really seems like it should be a built-in function in ampersand-view, but it isn't:
   // https://github.com/AmpersandJS/ampersand-view/blob/5c4192545c80d1682ba47f339306c66c00a8819c/ampersand-view.js#L168
-  removeSubviews () {
+  removeSubviews() {
     if (this._subviews) {
       invoke(flatten(this._subviews), 'remove');
     }
   },
 
-  show () {
+  show() {
     dom.show(this.el);
   },
 
-  hide () {
+  hide() {
     dom.hide(this.el);
   },
 
-  sliceCollection (collection, CollectionType, start, n) {
+  sliceCollection(collection, CollectionType, start, n) {
     if (!collection.length) {
       return new CollectionType();
     }
     if (n === 1) {
       return new CollectionType([collection.at(start)]);
     }
-    return new CollectionType(collection.filter(function (item, itemIndex) {
+    return new CollectionType(collection.filter(function(item, itemIndex) {
       return (itemIndex >= start) && (itemIndex < (start + n));
     }));
   }

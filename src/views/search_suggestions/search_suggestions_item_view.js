@@ -10,7 +10,7 @@ export default BaseView.extend({
     'select': 'sendSelectionDetails'
   },
 
-  openSuggestion (event) {
+  openSuggestion(event) {
     // we have to use mousedown, not click, because of browser bugs.
     // see https://github.com/mozilla/universal-search-addon/issues/20 for more.
     if (event.which === 1) {
@@ -18,7 +18,7 @@ export default BaseView.extend({
     }
   },
 
-  sendSelectionDetails (event) {
+  sendSelectionDetails(event) {
     webChannel.sendUrlSelected(this.model.term, 'suggestion');
   }
 });

@@ -8,14 +8,14 @@ import searchSuggestionsAdapter from '../../adapters/search_suggestions_adapter'
 export default BaseView.extend({
   template: SearchSuggestionsTopTemplate,
 
-  initialize () {
+  initialize() {
     this.adapter = searchSuggestionsAdapter;
     this.listenTo(this.adapter.combinedSuggestions, 'reset', this.render);
   },
 
-  afterRender () {
+  afterRender() {
     this.removeSubviews();
-    let items = this.sliceCollection(this.adapter.combinedSuggestions, SearchSuggestionsCollection, 0, 1);
+    const items = this.sliceCollection(this.adapter.combinedSuggestions, SearchSuggestionsCollection, 0, 1);
     this.renderCollection(items, SearchSuggestionsItemView, '.top-search-suggestion');
     items.length ? this.show() : this.hide(); // eslint-disable-line no-unused-expressions
     app.trigger('needs-resized');

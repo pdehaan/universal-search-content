@@ -20,7 +20,7 @@ export default BaseView.extend({
     'mouseenter': 'clearSelection'
   },
 
-  initialize () {
+  initialize() {
     // listen for chrome key events
     this.listenTo(webChannel, 'navigational-key', this.dispatchKeypress);
     app.on('needs-resized', throttle(() => {
@@ -29,7 +29,7 @@ export default BaseView.extend({
     webChannel.on('popupclose', this.resetAdapters);
   },
 
-  afterRender () {
+  afterRender() {
     this.renderSubview(new TopSearchSuggestionView());
     this.renderSubview(new RecommendedIndexView());
     this.renderSubview(new ActivityIndexView());
@@ -37,12 +37,12 @@ export default BaseView.extend({
     this.renderSubview(new IconView());
   },
 
-  _handleEnter () {
-    let selectedItem = this.query('li.selected');
+  _handleEnter() {
+    const selectedItem = this.query('li.selected');
     if (selectedItem) {
       // trick the element into navigating
       // TODO: use JS events, not DOM events, for signaling (issue #37)
-      let fakeClick = new CustomEvent('mousedown');
+      const fakeClick = new CustomEvent('mousedown');
       fakeClick.which = 1;
       selectedItem.dispatchEvent(fakeClick);
     } else {
@@ -51,7 +51,7 @@ export default BaseView.extend({
     }
   },
 
-  dispatchKeypress (data) {
+  dispatchKeypress(data) {
     // down arrow and tab move down
     if (data.key === 'ArrowDown' || (data.key === 'Tab' && !data.shiftKey)) {
       this._selectNextItem(1);
@@ -64,19 +64,19 @@ export default BaseView.extend({
     }
   },
 
-  clearSelection (e) {
-    let selectedItem = this.query('li.selected');
+  clearSelection(e) {
+    const selectedItem = this.query('li.selected');
 
     if (selectedItem) {
       dom.removeClass(selectedItem, 'selected');
     }
   },
 
-  _selectNextItem (increment) {
+  _selectNextItem(increment) {
     const items = document.querySelectorAll('li');
     let newlySelected;
 
-    Array.prototype.some.call(items, function (item, i) {
+    Array.prototype.some.call(items, function(item, i) {
       if (dom.hasClass(item, 'selected')) {
         const newIndex = i + increment;
 
@@ -113,20 +113,20 @@ export default BaseView.extend({
   },
 
   // Adjust the height of the iframe to match the height of the body.
-  adjustHeight () {
+  adjustHeight() {
     webChannel.sendAdjustHeight(this.el.offsetHeight);
   },
 
   // Clear results of each of our adapters.
-  resetAdapters () {
-    let adapters = [
+  resetAdapters() {
+    const adapters = [
       activityResultsAdapter.results,
       recommendedAdapter.results,
       searchSuggestionsAdapter.localSuggestions,
       searchSuggestionsAdapter.remoteSuggestions,
       searchSuggestionsAdapter.combinedSuggestions
     ];
-    for (let adapter in adapters) {
+    for (const adapter in adapters) { // eslint-disable-line guard-for-in
       adapters[adapter].reset();
     }
   }

@@ -1,7 +1,4 @@
-extends: universal-search
-
-parser: babel-eslint
+extends: universal-search/content
 
 rules:
-  no-console: 0
-  no-var: 2
+  func-names: 0

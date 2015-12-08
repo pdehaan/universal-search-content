@@ -1,45 +1,45 @@
 import app from 'ampersand-app';
 
 class WebChannelEventRecorder {
-  constructor () {
+  constructor() {
     this.namespace = 'wcer-';
     this.maxEvents = 100;
   }
 
-  record () {
+  record() {
     window.addEventListener('WebChannelMessageToContent', this._messageReceived.bind(this));
   }
 
-  replay (eventName, max = 1, offset = 0) {
-    let details = this._getItem(eventName);
+  replay(eventName, max = 1, offset = 0) {
+    const details = this._getItem(eventName);
 
     if (!details) {
       return;
     }
 
-    let eventsToReplay = max > 0 ? details.slice(offset, offset + max) : details;
+    const eventsToReplay = max > 0 ? details.slice(offset, offset + max) : details;
 
     eventsToReplay.forEach((detail) => { this._triggerMessageToContent(detail); });
   }
 
-  replayAll (eventName) {
+  replayAll(eventName) {
     this.replay(eventName, -1);
   }
 
 
-  enable () {
+  enable() {
     return localStorage.setItem('WebChannelEventRecorder.enabled', 'true');
   }
 
-  disable () {
+  disable() {
     return localStorage.removeItem('WebChannelEventRecorder.enabled');
   }
 
-  isEnabled () {
+  isEnabled() {
     return !!localStorage.getItem('WebChannelEventRecorder.enabled');
   }
 
-  _messageReceived (e) {
+  _messageReceived(e) {
     const message = e.detail.message;
 
     if (message && message.type) {
@@ -47,7 +47,7 @@ class WebChannelEventRecorder {
     }
   }
 
-  _record (eventName, detail) {
+  _record(eventName, detail) {
     // don't record events if the app is being debugged
     if (app.isDebugging) {
       return;
@@ -66,17 +66,17 @@ class WebChannelEventRecorder {
     this._setItem(eventName, details);
   }
 
-  _getItem (key) {
-    let value = localStorage.getItem(this.namespace + key);
+  _getItem(key) {
+    const value = localStorage.getItem(this.namespace + key);
 
     return value ? JSON.parse(value) : value;
   }
 
-  _setItem (key, value) {
+  _setItem(key, value) {
     localStorage.setItem(this.namespace + key, JSON.stringify(value));
   }
 
-  _triggerMessageToContent (detail) {
+  _triggerMessageToContent(detail) {
     window.dispatchEvent(new window.CustomEvent('WebChannelMessageToContent', { detail: detail }));
   }
 }

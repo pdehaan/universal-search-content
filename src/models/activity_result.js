@@ -3,11 +3,11 @@ import State from 'ampersand-state';
 export default State.extend({
   extraProperties: 'allow',
 
-  displayTitle () {
+  displayTitle() {
     return this.bookmark ? this.bookmark.title : this.title;
   },
 
-  displayImage () {
+  displayImage() {
     return this.imageData ? this.imageData : this.image;
   }
 });

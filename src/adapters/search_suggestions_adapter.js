@@ -10,7 +10,7 @@ const SearchSuggestionsAdapter = State.extend({
     searchTerm: 'string'
   },
 
-  initialize () {
+  initialize() {
     this.maxLocalSuggestions = 2;
     this.maxCombinedSuggestions = 5;
 
@@ -23,10 +23,10 @@ const SearchSuggestionsAdapter = State.extend({
         this.engine = data.engine;
         this.searchTerm = data.results.term;
 
-        this.remoteSuggestions.reset(_c.collect(data.results.remote, function (t) {
+        this.remoteSuggestions.reset(_c.collect(data.results.remote, function(t) {
           return { term: t, type: 'remote' };
         }));
-        this.localSuggestions.reset(_c.collect(data.results.local, function (t) {
+        this.localSuggestions.reset(_c.collect(data.results.local, function(t) {
           return { term: t, type: 'local' };
         }));
 
@@ -35,9 +35,9 @@ const SearchSuggestionsAdapter = State.extend({
     });
   },
 
-  combineSuggestions () {
-    let remote = this.remoteSuggestions.models;
-    let local = this.localSuggestions.models;
+  combineSuggestions() {
+    const remote = this.remoteSuggestions.models;
+    const local = this.localSuggestions.models;
 
     let combined = local.slice(0, this.maxLocalSuggestions);
     combined = combined.concat(remote.slice(0, this.maxCombinedSuggestions - combined.length));

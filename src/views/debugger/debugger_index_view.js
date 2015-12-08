@@ -12,21 +12,21 @@ export default BaseView.extend({
     'click .toggle-recorder': 'toggleRecorder'
   },
 
-  initialize () {
+  initialize() {
     this.eventIndex = 0;
 
     this.replayNext();
   },
 
-  afterRender () {
+  afterRender() {
     this.initToggleRecorder();
   },
 
-  initToggleRecorder () {
+  initToggleRecorder() {
     this.query('.toggle-recorder').checked = webChannelEventRecorder.isEnabled();
   },
 
-  toggleRecorder () {
+  toggleRecorder() {
     if (this.query('.toggle-recorder').checked) {
       webChannelEventRecorder.enable();
     } else {
@@ -34,19 +34,19 @@ export default BaseView.extend({
     }
   },
 
-  replayThis () {
+  replayThis() {
     webChannelEventRecorder.replay('autocomplete-search-results', 1, this.eventIndex - 1);
     webChannelEventRecorder.replay('suggested-search-results', 1, this.eventIndex - 1);
   },
 
-  replayNext () {
+  replayNext() {
     webChannelEventRecorder.replay('autocomplete-search-results', 1, this.eventIndex);
     webChannelEventRecorder.replay('suggested-search-results', 1, this.eventIndex);
 
     this.eventIndex++;
   },
 
-  replayTen () {
+  replayTen() {
     webChannelEventRecorder.replay('autocomplete-search-results', 10);
     webChannelEventRecorder.replay('suggested-search-results', 10);
 

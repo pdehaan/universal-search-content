@@ -8,14 +8,14 @@ import ActivityResultsCollection from '../../collections/activity_results';
 export default BaseView.extend({
   template: ActivityIndexTemplate,
 
-  initialize () {
+  initialize() {
     this.adapter = activityResultsAdapter;
     this.listenTo(this.adapter.results, 'reset', this.render);
   },
 
-  afterRender () {
+  afterRender() {
     this.removeSubviews();
-    let items = this.sliceCollection(this.adapter.results, ActivityResultsCollection, 0, 1);
+    const items = this.sliceCollection(this.adapter.results, ActivityResultsCollection, 0, 1);
     this.renderCollection(items, ActivityItemView, '.top-activity-results');
 
     // if there are results then show otherwise hide

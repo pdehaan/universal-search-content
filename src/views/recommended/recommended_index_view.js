@@ -8,14 +8,14 @@ import RecommendedAdapter from '../../adapters/recommended_adapter';
 export default BaseView.extend({
   template: RecommendedIndexTemplate,
 
-  initialize () {
+  initialize() {
     this.Recommended = RecommendedAdapter;
     this.listenTo(this.Recommended.results, 'reset', this.render);
   },
 
-  afterRender () {
+  afterRender() {
     this.removeSubviews();
-    let items = this.sliceCollection(this.Recommended.results,
+    const items = this.sliceCollection(this.Recommended.results,
                                      RecommendedResults, 0, 1);
     this.renderCollection(items, RecommendedItemView,
                           '.recommended-results');

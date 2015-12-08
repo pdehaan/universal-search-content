@@ -11,12 +11,12 @@ export default BaseView.extend({
     'select': 'sendSelectionDetails'
   },
 
-  afterRender () {
+  afterRender() {
     this.iconContainer = this.query('.icon.favicon');
     this.injectFavicon();
   },
 
-  openUrl (event) {
+  openUrl(event) {
     // we have to use mousedown, not click, because of browser bugs.
     // see https://github.com/mozilla/universal-search-addon/issues/20 for more.
     if (event.which === 1) {
@@ -25,11 +25,11 @@ export default BaseView.extend({
     }
   },
 
-  sendSelectionDetails (event) {
+  sendSelectionDetails(event) {
     webChannel.sendUrlSelected(this.model.url, 'url');
   },
 
-  injectFavicon () {
+  injectFavicon() {
     // Manually construct the favicon element and inject it into the DOM,
     // allowing us to handle events directly, since load events don't bubble
     // and cannot be delegated.
@@ -40,11 +40,11 @@ export default BaseView.extend({
     this.iconContainer.appendChild(this.icon);
   },
 
-  hideErroredFavicon () {
+  hideErroredFavicon() {
     this.icon.style.display = 'none';
   },
 
-  calculateIconColor () {
+  calculateIconColor() {
     // If able to do so in 20ms or less, calculate the dominant color of the
     // favicon and set that to the background color of its parent.
     const START = performance.now();

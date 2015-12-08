@@ -5,18 +5,18 @@ import './styles/main.scss';
 import webChannelEventRecorder from './lib/web_channel_event_recorder';
 
 app.extend({
-  initialize () {
+  initialize() {
     this.renderIndexView();
     this.initializeWebChannelEventRecorder();
   },
 
-  renderIndexView () {
+  renderIndexView() {
     this.indexView = new IndexView();
 
     document.body.appendChild(this.indexView.render().el);
   },
 
-  initializeWebChannelEventRecorder () {
+  initializeWebChannelEventRecorder() {
     if (webChannelEventRecorder.isEnabled()) {
       webChannelEventRecorder.record();
     }
@@ -24,7 +24,7 @@ app.extend({
     this.webChannelEventRecorder = webChannelEventRecorder;
   },
 
-  showDebugger () {
+  showDebugger() {
     this.isDebugging = true;
     this.debuggerIndexView = new DebuggerIndexView();
 

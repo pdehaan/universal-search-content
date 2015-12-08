@@ -8,14 +8,14 @@ import searchSuggestionsAdapter from '../../adapters/search_suggestions_adapter'
 export default BaseView.extend({
   template: SearchSuggestionsIndexTemplate,
 
-  initialize () {
+  initialize() {
     this.adapter = searchSuggestionsAdapter;
     this.listenTo(this.adapter.combinedSuggestions, 'reset', this.render);
   },
 
-  afterRender () {
+  afterRender() {
     this.removeSubviews();
-    let items = this.sliceCollection(this.adapter.combinedSuggestions,
+    const items = this.sliceCollection(this.adapter.combinedSuggestions,
                                      SearchSuggestionsCollection, 1, 3);
     this.renderCollection(items, SearchSuggestionsItemView,
                           '.combined-search-suggestions');

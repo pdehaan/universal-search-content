@@ -1,7 +1,7 @@
 import Events from 'ampersand-events';
 
 class WebChannel {
-  constructor () {
+  constructor() {
     // turn this into an event emitter
     Events.createEmitter(this);
 
@@ -11,7 +11,7 @@ class WebChannel {
     this.channelId = null;
   }
 
-  sendMessage (type, data) {
+  sendMessage(type, data) {
     window.dispatchEvent(new window.CustomEvent('WebChannelMessageToChrome', {
       detail: {
         id: this.channelId,
@@ -23,27 +23,27 @@ class WebChannel {
     }));
   }
 
-  sendAutocompleteClick (result, resultType) {
+  sendAutocompleteClick(result, resultType) {
     this.sendMessage('autocomplete-url-clicked', {
       result: result,
       resultType: resultType
     });
   }
 
-  sendUrlSelected (result, resultType) {
+  sendUrlSelected(result, resultType) {
     this.sendMessage('url-selected', {
       result: result,
       resultType: resultType
     });
   }
 
-  sendAdjustHeight (newHeight) {
+  sendAdjustHeight(newHeight) {
     this.sendMessage('adjust-height', {
       height: newHeight
     });
   }
 
-  _messageReceived (e) {
+  _messageReceived(e) {
     const newChannelId = e.detail.id;
     if (this.channelId !== newChannelId) {
       this.channelId = newChannelId;
